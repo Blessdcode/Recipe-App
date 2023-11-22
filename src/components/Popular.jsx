@@ -40,7 +40,13 @@ const Popular = () => {
           arrows: false,
           pagination: false,
           drag: "free",
-          gap: "2rem"
+          gap: "2rem",
+
+          breakpoints: {
+            640: {
+              perPage: 1,
+            },
+          }
         }}>
         {popular.map((recipes) => {
           return (

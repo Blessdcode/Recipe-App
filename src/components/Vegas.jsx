@@ -40,7 +40,12 @@ const Vegas = () => {
           arrows: false,
           pagination: false,
           drag: "free",
-          gap: "2rem"
+          gap: "2rem",
+          breakpoints: {
+            640: {
+              perPage: 1,
+            },
+          }
         }}>
         {veggie.map((recipes) => {
           return (

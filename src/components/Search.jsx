@@ -36,7 +36,11 @@ const FormStyle = styled.div`
 
     div{
         position: relative;
+        margin: auto 0;
         width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
 
@@ -48,7 +52,7 @@ const FormStyle = styled.div`
         padding: 1rem 3rem;
         border-radius: 1rem;
         outline: none;
-        margin: auto;
+        margin: auto 0;
         display: flex;
         width: 100%;
         
