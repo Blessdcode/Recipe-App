@@ -9,23 +9,23 @@ const Catergory = () => {
     return (
         <List>
             <SLink to={'/'}>
-                <FaHome />
+                <FaHome size={30}/>
                 <h4>Home</h4>
             </SLink>
             <SLink to={'/cuisine/Italian'}>
-                <FaPizzaSlice />
+                <FaPizzaSlice size={30}/>
                 <h4>Italian</h4>
             </SLink>
             <SLink to={'/cuisine/American'}>
-                <FaHamburger />
+                <FaHamburger size={30}/>
                 <h4>American</h4>
             </SLink>
             <SLink to={'/cuisine/Thai'}>
-                <GiNoodles />
+                <GiNoodles size={30}/>
                 <h4>Thai</h4>
             </SLink>
             <SLink to={'/cuisine/Japanese'}>
-                <GiChopsticks />
+                <GiChopsticks size={30}/>
                 <h4>Japanese</h4>
             </SLink>
         </List>
@@ -53,12 +53,10 @@ const SLink = styled(NavLink)`
     text-decoration: none;
     margin-right: 2rem;
     background: linear-gradient(35deg, #494949, #313131);
-    width: 4rem;
-    height: 4rem;
+    width: 5rem;
+    height: 5rem;
     cursor: pointer;
     transform: scale(.8);
-
-
 
 
     h4{
@@ -68,7 +66,7 @@ const SLink = styled(NavLink)`
 
     svg{
         color: white;
-        font-size: 1.5rem;
+        margin-top: .3rem;
     }
     &.active{
         background:linear-gradient(to right, #f27121, #e94057)
