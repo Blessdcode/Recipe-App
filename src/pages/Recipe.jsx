@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams,useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import {FaBackward} from 'react-icons/fa'
+import {FaArrowLeft} from 'react-icons/fa'
 
 const Recipe = () => {
   const [active, setActive] = useState('instructions')
@@ -25,7 +25,7 @@ const Recipe = () => {
 
   return (
     <DetailWrapper>
-      <FaBackward onClick={()=> navigate('/')} size={32}/>
+      <FaArrowLeft onClick={()=> navigate('/')} size={32}/>
       <Wrapper>
         <div>
           <h2>{details.title}</h2>
