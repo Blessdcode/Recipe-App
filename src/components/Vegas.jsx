@@ -17,7 +17,7 @@ const Vegas = () => {
 
   const getVeggie = async () => {
 
-    const check = localStorage.getItem("veggie")
+    const check = sessionStorage.getItem("veggie")
 
     if (check) {
       setVeggie(JSON.parse(check))
@@ -26,9 +26,9 @@ const Vegas = () => {
 
       const data = await api.json()
 
-      localStorage.setItem("veggie", JSON.stringify(data.recipes))
+      sessionStorage.setItem("veggie", JSON.stringify(data.recipes))
       setVeggie(data.recipes)
-      console.log(data);
+      // console.log(data);
     }
   }
 

@@ -17,7 +17,7 @@ const Popular = () => {
 
   const getPopular = async () => {
 
-    const check = localStorage.getItem("popular")
+    const check = sessionStorage.getItem("popular")
 
     if (check) {
       setPopular(JSON.parse(check))
@@ -26,9 +26,9 @@ const Popular = () => {
 
       const data = await api.json()
 
-      localStorage.setItem("popular", JSON.stringify(data.recipes))
+      sessionStorage.setItem("popular", JSON.stringify(data.recipes))
       setPopular(data.recipes)
-      console.log(data);
+      // console.log(data);
     }
 
 
@@ -39,8 +39,8 @@ const Popular = () => {
       <h3>Popular Food</h3>
       <Splide
         options={{
-          perPage: 4,
-          arrows: false,
+          perPage: 3,
+          arrows: true,
           pagination: false,
           drag: "free",
           gap: "2rem",
@@ -96,7 +96,7 @@ const Card = styled.div`
     left: 59%;
     top:50%;
     transform: translate(-50%, -50%);
-    color:white;
+    color:#fff;
     text-align: center;
     font-weight: 600;
     font-size: 14px;
@@ -111,7 +111,7 @@ const Gradient = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5));
+  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7));
 `
 
 export default Popular
