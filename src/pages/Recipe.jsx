@@ -162,7 +162,7 @@ const slideIn = keyframes`
 // Styled Components
 const Container = styled.div`
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(35deg, #494949, #313131);
   padding: 2rem;
   animation: ${fadeInUp} 0.6s ease-out;
 
@@ -177,7 +177,7 @@ const LoadingContainer = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(35deg, #494949, #313131);
 `
 
 const LoadingSpinner = styled.div`
@@ -297,7 +297,7 @@ const RecipeTitle = styled.h1`
   font-weight: 700;
   margin-bottom: 1.5rem;
   line-height: 1.2;
-  background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+ background: linear-gradient(35deg, #494949, #313131);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -405,7 +405,7 @@ const IngredientsContent = styled.div`
 `
 
 const SummaryCard = styled.div`
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+ background: linear-gradient(35deg, #494949, #313131);
   color: white;
   padding: 2rem;
   border-radius: 16px;
@@ -479,7 +479,7 @@ const IngredientItem = styled.li`
 const IngredientBullet = styled.div`
   width: 8px;
   height: 8px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ background: linear-gradient(35deg, #494949, #313131);
   border-radius: 50%;
   flex-shrink: 0;
 `
