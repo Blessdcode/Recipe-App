@@ -72,7 +72,11 @@ const SLink = styled(NavLink)`
         background:linear-gradient(to right, #f27121, #e94057)
     }
     &:hover{
-        background:linear-gradient(to right, #f27121, #e94057)
+       background: linear-gradient(
+        135deg, 
+        rgba(102, 126, 234, 0.8) 0%, 
+        rgba(118, 75, 162, 0.8) 100%
+    );
     }
 
     @media (max-width:800) {
