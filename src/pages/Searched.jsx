@@ -147,7 +147,7 @@ const slideIn = keyframes`
 // Styled Components
 const Container = styled.div`
     min-height: 100vh;
-    background: linear-gradient(35deg, #494949, #313131);
+    background:linear-gradient(to right, #f27121, #e94057)
     padding: 2rem;
 
     @media (max-width: 768px) {
@@ -166,7 +166,7 @@ const SearchTitle = styled.h1`
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-     background: linear-gradient(35deg, #494949, #313131);
+     background:linear-gradient(to right, #f27121, #e94057)
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -181,7 +181,7 @@ const SearchTitle = styled.h1`
 `
 
 const SearchTerm = styled.span`
-   background: linear-gradient(35deg, #494949, #313131);
+    background:linear-gradient(to right, #f27121, #e94057)
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -195,7 +195,7 @@ const ResultCount = styled.p`
 
 const LoadingContainer = styled.div`
     min-height: 100vh;
-    background: linear-gradient(35deg, #494949, #313131);
+     background:linear-gradient(to right, #f27121, #e94057)
     padding: 2rem;
 
     @media (max-width: 768px) {
@@ -243,7 +243,7 @@ const SkeletonCard = styled.div`
 
 const ErrorContainer = styled.div`
     min-height: 100vh;
-   background: linear-gradient(35deg, #494949, #313131);
+   background:linear-gradient(to right, #f27121, #e94057)
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -272,7 +272,7 @@ const ErrorMessage = styled.p`
 `
 
 const RetryButton = styled.button`
-   background: linear-gradient(35deg, #494949, #313131);
+   background:linear-gradient(to right, #f27121, #e94057)
     border: none;
     color: white;
     padding: 1rem 2rem;
