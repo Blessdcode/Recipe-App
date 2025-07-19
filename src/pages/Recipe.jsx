@@ -162,7 +162,6 @@ const slideIn = keyframes`
 // Styled Components
 const Container = styled.div`
   min-height: 100vh;
-  background: linear-gradient(35deg, #494949, #313131);
   padding: 2rem;
   animation: ${fadeInUp} 0.6s ease-out;
 
