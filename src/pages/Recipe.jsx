@@ -177,7 +177,7 @@ const LoadingContainer = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(35deg, #494949, #313131);
+ 
 `
 
 const LoadingSpinner = styled.div`
@@ -297,7 +297,11 @@ const RecipeTitle = styled.h1`
   font-weight: 700;
   margin-bottom: 1.5rem;
   line-height: 1.2;
- background: linear-gradient(35deg, #494949, #313131);
+  background: linear-gradient(
+        135deg, 
+        rgba(102, 126, 234, 0.8) 0%, 
+        rgba(118, 75, 162, 0.8) 100%
+    );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -419,8 +423,8 @@ const SummaryCard = styled.div`
 `
 
 const InstructionsCard = styled.div`
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
+      background: rgba(255, 255, 255, 0.95);
+  color: #333;
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(79, 172, 254, 0.3);
