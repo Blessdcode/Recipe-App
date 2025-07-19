@@ -408,7 +408,11 @@ const IngredientsContent = styled.div`
 `
 
 const SummaryCard = styled.div`
- background: linear-gradient(35deg, #494949, #313131);
+  background: linear-gradient(
+        135deg, 
+        rgba(102, 126, 234, 0.8) 0%, 
+        rgba(118, 75, 162, 0.8) 100%
+    );
   color: white;
   padding: 2rem;
   border-radius: 16px;
