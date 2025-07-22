@@ -99,7 +99,7 @@ const Recipe = () => {
               {details.summary && (
                 <SummaryCard>
                   <SectionTitle>About this recipe</SectionTitle>
-                  <div dangerouslySetInnerHTML={{ __html: details.summary }} />
+                  <SummaryText dangerouslySetInnerHTML={{ __html: details.summary }} />
                 </SummaryCard>
               )}
               
@@ -423,6 +423,12 @@ const SummaryCard = styled.div`
     line-height: 1.7;
     margin: 0;
   }
+`
+const SummaryText = styled.div`
+  p 
+    line-height: 1.7;
+    margin: 0;
+  
 `
 
 const InstructionsCard = styled.div`
