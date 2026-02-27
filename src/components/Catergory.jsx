@@ -1,93 +1,158 @@
-import React from 'react'
-import { FaPizzaSlice, FaHamburger, FaHome } from 'react-icons/fa'
-import { GiNoodles, GiChopsticks } from 'react-icons/gi'
-import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import React from "react";
+import { FaPizzaSlice, FaHamburger, FaHome } from "react-icons/fa";
+import { GiNoodles, GiChopsticks, GiHotMeal, GiSushis } from "react-icons/gi";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
-
-const Catergory = () => {
-    return (
-        <List>
-            <SLink to={'/'}>
-                <FaHome size={30}/>
-                <h4>Home</h4>
-            </SLink>
-            <SLink to={'/cuisine/Italian'}>
-                <FaPizzaSlice size={30}/>
-                <h4>Italian</h4>
-            </SLink>
-            <SLink to={'/cuisine/American'}>
-                <FaHamburger size={30}/>
-                <h4>American</h4>
-            </SLink>
-            <SLink to={'/cuisine/Thai'}>
-                <GiNoodles size={30}/>
-                <h4>Thai</h4>
-            </SLink>
-            <SLink to={'/cuisine/Japanese'}>
-                <GiChopsticks size={30}/>
-                <h4>Japanese</h4>
-            </SLink>
-        </List>
-    )
-}
+const Category = () => {
+  return (
+    <List>
+      <SLink to={"/"} end>
+        <IconWrap>
+          <FaHome size={20} />
+        </IconWrap>
+        <span>Home</span>
+      </SLink>
+      <SLink to={"/cuisine/Italian"}>
+        <IconWrap>
+          <FaPizzaSlice size={20} />
+        </IconWrap>
+        <span>Italian</span>
+      </SLink>
+      <SLink to={"/cuisine/American"}>
+        <IconWrap>
+          <FaHamburger size={20} />
+        </IconWrap>
+        <span>American</span>
+      </SLink>
+      <SLink to={"/cuisine/Thai"}>
+        <IconWrap>
+          <GiNoodles size={20} />
+        </IconWrap>
+        <span>Thai</span>
+      </SLink>
+      <SLink to={"/cuisine/Japanese"}>
+        <IconWrap>
+          <GiSushis size={20} />
+        </IconWrap>
+        <span>Japanese</span>
+      </SLink>
+      <SLink to={"/cuisine/Chinese"}>
+        <IconWrap>
+          <GiChopsticks size={20} />
+        </IconWrap>
+        <span>Chinese</span>
+      </SLink>
+      <SLink to={"/cuisine/African"}>
+        <IconWrap>
+          <GiHotMeal size={20} />
+        </IconWrap>
+        <span>African</span>
+      </SLink>
+    </List>
+  );
+};
 
 const List = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 2rem 0;
-    @media (max-width: 800px) {
-    /* flex-direction: column; */
-    align-items: center;
-    margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1rem 0 2rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    gap: 0.5rem;
   }
-`
+`;
+
+const IconWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.06);
+  transition: all var(--transition-normal);
+  flex-shrink: 0;
+`;
 
 const SLink = styled(NavLink)`
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    text-decoration: none;
-    margin-right: 2rem;
-    background: linear-gradient(35deg, #494949, #313131);
-    width: 5rem;
-    height: 5rem;
-    cursor: pointer;
-    transform: scale(.8);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  background: var(--bg-glass);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: all var(--transition-normal);
 
+  span {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+    white-space: nowrap;
+  }
 
-    h4{
-        color: white;
-        font-size: .8rem;
+  svg {
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  &:hover {
+    background: var(--bg-glass-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+
+    span {
+      color: var(--text-primary);
+    }
+    svg {
+      color: var(--accent-primary);
     }
 
-    svg{
-        color: white;
-        margin-top: .3rem;
+    ${IconWrap} {
+      background: rgba(249, 115, 22, 0.12);
     }
-    &.active{
-         background: linear-gradient(
-        135deg, 
-        rgba(102, 126, 234, 0.8) 0%, 
-        rgba(118, 75, 162, 0.8) 100%
-    );
+  }
+
+  &.active {
+    background: var(--accent-gradient-soft);
+    border-color: rgba(249, 115, 22, 0.3);
+    box-shadow: var(--accent-glow);
+
+    span {
+      color: var(--accent-primary);
+      font-weight: 600;
     }
-    &:hover{
-       background: linear-gradient(
-        135deg, 
-        rgba(102, 126, 234, 0.8) 0%, 
-        rgba(118, 75, 162, 0.8) 100%
-    );
+    svg {
+      color: var(--accent-primary);
     }
 
-    @media (max-width:800) {
-    
-    width: 3rem;
-    height: 3rem;
+    ${IconWrap} {
+      background: rgba(249, 115, 22, 0.15);
     }
-`
+  }
 
-export default Catergory
+  @media (max-width: 600px) {
+    padding: 0.5rem 0.9rem;
+
+    span {
+      font-size: 0.78rem;
+    }
+
+    ${IconWrap} {
+      width: 34px;
+      height: 34px;
+    }
+
+    svg {
+      font-size: 16px;
+    }
+  }
+`;
+
+export default Category;

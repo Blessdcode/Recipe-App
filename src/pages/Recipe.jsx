@@ -1,32 +1,34 @@
-import { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import styled, { keyframes } from "styled-components"
-import { FaArrowLeft, FaClock, FaUsers, FaHeart } from 'react-icons/fa'
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
+import { FaArrowLeft, FaClock, FaUsers, FaHeart } from "react-icons/fa";
 
 const Recipe = () => {
-  const [active, setActive] = useState('instructions')
-  const [isLiked, setIsLiked] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const params = useParams()
-  const [details, setDetails] = useState({})
-  const navigate = useNavigate()
+  const [active, setActive] = useState("instructions");
+  const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const params = useParams();
+  const [details, setDetails] = useState({});
+  const navigate = useNavigate();
 
   const fetchDetails = async () => {
     try {
-      setIsLoading(true)
-      const data = await fetch(`https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_API_KEY}`)
-      const detailsData = await data.json()
-      setDetails(detailsData)
+      setIsLoading(true);
+      const data = await fetch(
+        `https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${import.meta.env.VITE_API_KEY}`,
+      );
+      const detailsData = await data.json();
+      setDetails(detailsData);
     } catch (error) {
-      console.error("Error fetching recipe details:", error)
+      console.error("Error fetching recipe details:", error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchDetails()
-  }, [params.name])
+    fetchDetails();
+  }, [params.name]);
 
   if (isLoading) {
     return (
@@ -34,13 +36,13 @@ const Recipe = () => {
         <LoadingSpinner />
         <LoadingText>Loading delicious recipe...</LoadingText>
       </LoadingContainer>
-    )
+    );
   }
 
   return (
     <Container>
-      <BackButton onClick={() => navigate('/')}>
-        <FaArrowLeft size={20} />
+      <BackButton onClick={() => navigate("/")}>
+        <FaArrowLeft size={16} />
         <span>Back to Recipes</span>
       </BackButton>
 
@@ -48,15 +50,12 @@ const Recipe = () => {
         <ImageSection>
           <RecipeImage src={details.image} alt={details.title} />
           <ImageOverlay>
-            <LikeButton 
-              onClick={() => setIsLiked(!isLiked)}
-              $isLiked={isLiked}
-            >
+            <LikeButton onClick={() => setIsLiked(!isLiked)} $isLiked={isLiked}>
               <FaHeart />
             </LikeButton>
           </ImageOverlay>
         </ImageSection>
-        
+
         <HeaderInfo>
           <RecipeTitle>{details.title}</RecipeTitle>
           <RecipeStats>
@@ -78,141 +77,129 @@ const Recipe = () => {
 
       <ContentSection>
         <TabNavigation>
-          <TabButton 
-            $active={active === 'instructions'} 
-            onClick={() => setActive('instructions')}
+          <TabButton
+            $active={active === "instructions"}
+            onClick={() => setActive("instructions")}
           >
             Instructions
           </TabButton>
-          <TabButton 
-            $active={active === 'ingredients'} 
-            onClick={() => setActive('ingredients')}
+          <TabButton
+            $active={active === "ingredients"}
+            onClick={() => setActive("ingredients")}
           >
             Ingredients
           </TabButton>
-          <TabIndicator $activeTab={active} />
         </TabNavigation>
 
         <ContentWrapper>
-          {active === 'instructions' && (
-            <InstructionsContent>
+          {active === "instructions" && (
+            <TabContent>
               {details.summary && (
                 <SummaryCard>
                   <SectionTitle>About this recipe</SectionTitle>
-                  <SummaryText dangerouslySetInnerHTML={{ __html: details.summary }} />
+                  <SummaryText
+                    dangerouslySetInnerHTML={{ __html: details.summary }}
+                  />
                 </SummaryCard>
               )}
-              
+
               {details.instructions && (
                 <InstructionsCard>
                   <SectionTitle>How to make it</SectionTitle>
-                  <div dangerouslySetInnerHTML={{ __html: details.instructions }} />
+                  <InstructionsBody
+                    dangerouslySetInnerHTML={{ __html: details.instructions }}
+                  />
                 </InstructionsCard>
               )}
-            </InstructionsContent>
+            </TabContent>
           )}
-          
-          {active === 'ingredients' && details.extendedIngredients && (
-            <IngredientsContent>
+
+          {active === "ingredients" && details.extendedIngredients && (
+            <TabContent>
               <SectionTitle>What you'll need</SectionTitle>
               <IngredientsList>
                 {details.extendedIngredients.map((ingredient, index) => (
-                  <IngredientItem key={ingredient.id} $delay={index * 0.1}>
+                  <IngredientItem key={ingredient.id} $delay={index * 0.05}>
                     <IngredientBullet />
                     <IngredientText>{ingredient.original}</IngredientText>
                   </IngredientItem>
                 ))}
               </IngredientsList>
-            </IngredientsContent>
+            </TabContent>
           )}
         </ContentWrapper>
       </ContentSection>
     </Container>
-  )
-}
+  );
+};
 
-// Animations
+/* Animations */
 const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
 
 const spin = keyframes`
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-`
+`;
 
 const slideIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
+  from { opacity: 0; transform: translateX(-15px); }
+  to { opacity: 1; transform: translateX(0); }
+`;
 
-// Styled Components
+/* Styled Components */
 const Container = styled.div`
-  min-height: 100vh;
-  padding: 2rem;
-  animation: ${fadeInUp} 0.6s ease-out;
-
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
-`
+  min-height: 80vh;
+  padding: 1rem 0 3rem;
+  animation: ${fadeInUp} 0.5s ease-out;
+`;
 
 const LoadingContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
- 
-`
+  min-height: 60vh;
+`;
 
 const LoadingSpinner = styled.div`
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #fff;
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid var(--accent-primary);
   border-radius: 50%;
-  animation: ${spin} 1s linear infinite;
-`
+  animation: ${spin} 0.8s linear infinite;
+`;
 
 const LoadingText = styled.p`
-  color: white;
-  font-size: 1.2rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
   margin-top: 1rem;
-  font-weight: 300;
-`
+  font-weight: 400;
+`;
 
 const BackButton = styled.button`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
+  background: var(--bg-glass);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-pill);
   cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   margin-bottom: 2rem;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateX(-5px);
+    background: var(--bg-glass-hover);
+    color: var(--text-primary);
+    transform: translateX(-4px);
   }
 
   span {
@@ -220,288 +207,282 @@ const BackButton = styled.button`
       display: none;
     }
   }
-`
+`;
 
 const RecipeHeader = styled.div`
   display: grid;
-  grid-template-columns: 400px 1fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
-  animation: ${fadeInUp} 0.8s ease-out 0.2s both;
+  grid-template-columns: 380px 1fr;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+  animation: ${fadeInUp} 0.6s ease-out 0.1s both;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
-`
+`;
 
 const ImageSection = styled.div`
   position: relative;
-  border-radius: 24px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-`
+  box-shadow: var(--shadow-lg);
+`;
 
 const RecipeImage = styled.img`
   width: 100%;
   height: 300px;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-slow);
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
   @media (max-width: 768px) {
-    height: 250px;
+    height: 240px;
   }
-`
+`;
 
 const ImageOverlay = styled.div`
   position: absolute;
   top: 1rem;
   right: 1rem;
-`
+`;
 
 const LikeButton = styled.button`
-  background: ${props => props.$isLiked ? '#e94057' : 'rgba(255, 255, 255, 0.2)'};
+  background: ${(props) =>
+    props.$isLiked ? "#ef4444" : "rgba(255, 255, 255, 0.15)"};
   backdrop-filter: blur(10px);
-  border: none;
-  color: ${props => props.$isLiked ? 'white' : 'white'};
-  width: 50px;
-  height: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
 
   &:hover {
     transform: scale(1.1);
-    background: #e94057;
+    background: #ef4444;
   }
-`
+`;
 
 const HeaderInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: white;
-`
+`;
 
 const RecipeTitle = styled.h1`
-  font-size: 3rem;
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
   line-height: 1.2;
-  background: linear-gradient(
-        135deg, 
-        rgba(102, 126, 234, 0.8) 0%, 
-        rgba(118, 75, 162, 0.8) 100%
-    );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 480px) {
     font-size: 2rem;
   }
-`
+  @media (max-width: 480px) {
+    font-size: 1.6rem;
+  }
+`;
 
 const RecipeStats = styled.div`
   display: flex;
-  gap: 2rem;
-  
-  @media (max-width: 480px) {
-    gap: 1rem;
-  }
-`
+  gap: 1rem;
+  flex-wrap: wrap;
+`;
 
 const StatItem = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--bg-glass);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+
+  svg {
+    color: var(--accent-primary);
+  }
 
   span {
     font-weight: 500;
   }
-`
+`;
 
 const ContentSection = styled.div`
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-xl);
   padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  animation: ${fadeInUp} 1s ease-out 0.4s both;
+  animation: ${fadeInUp} 0.7s ease-out 0.2s both;
 
   @media (max-width: 768px) {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
-`
+`;
 
 const TabNavigation = styled.div`
-  position: relative;
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   margin-bottom: 2rem;
-  background: #f8f9fa;
-  padding: 0.5rem;
-  border-radius: 16px;
-`
+  background: var(--bg-glass);
+  padding: 0.35rem;
+  border-radius: var(--radius-md);
+`;
 
 const TabButton = styled.button`
   flex: 1;
-  background: ${props => props.$active ? 'white' : 'transparent'};
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 12px;
+  background: ${(props) =>
+    props.$active ? "var(--bg-secondary)" : "transparent"};
+  border: ${(props) =>
+    props.$active
+      ? "1px solid rgba(255, 255, 255, 0.08)"
+      : "1px solid transparent"};
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
   font-weight: 600;
-  color: ${props => props.$active ? '#333' : '#666'};
+  font-size: 0.9rem;
+  color: ${(props) =>
+    props.$active ? "var(--text-primary)" : "var(--text-muted)"};
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: ${props => props.$active ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none'};
-  transform: ${props => props.$active ? 'translateY(-2px)' : 'none'};
+  transition: all var(--transition-normal);
 
   &:hover {
-    color: #333;
+    color: var(--text-primary);
   }
 
   @media (max-width: 480px) {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.82rem;
   }
-`
-
-const TabIndicator = styled.div`
-  position: absolute;
-  bottom: 0.5rem;
-  left: ${props => props.$activeTab === 'instructions' ? '0.5rem' : '50%'};
-  width: calc(50% - 1rem);
-  height: 4px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-  border-radius: 2px;
-  transition: left 0.3s ease;
-`
+`;
 
 const ContentWrapper = styled.div`
-  min-height: 300px;
-`
+  min-height: 250px;
+`;
 
-const InstructionsContent = styled.div`
-  animation: ${slideIn} 0.5s ease-out;
-`
-
-const IngredientsContent = styled.div`
-  animation: ${slideIn} 0.5s ease-out;
-`
+const TabContent = styled.div`
+  animation: ${slideIn} 0.4s ease-out;
+`;
 
 const SummaryCard = styled.div`
-  background: linear-gradient(
-        135deg, 
-        rgba(102, 126, 234, 0.8) 0%, 
-        rgba(118, 75, 162, 0.8) 100%
-    );
-  color: white;
-  padding: 2rem;
-  border-radius: 16px;
-  margin-bottom: 2rem;
-  box-shadow: 0 8px 32px rgba(240, 147, 251, 0.3);
+  background: var(--accent-gradient-soft);
+  border: 1px solid rgba(249, 115, 22, 0.15);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.5rem;
+`;
 
-  p {
-    line-height: 1.7;
-    margin: 0;
-  }
-`
 const SummaryText = styled.div`
-  p 
-    line-height: 1.7;
-    margin: 0;
-  
-`
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 0.92rem;
+
+  a {
+    color: var(--accent-primary);
+    text-decoration: underline;
+  }
+
+  b,
+  strong {
+    color: var(--text-primary);
+  }
+`;
 
 const InstructionsCard = styled.div`
-      background: rgba(255, 255, 255, 0.95);
-  color: #333;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(79, 172, 254, 0.3);
-
-  p {
-    line-height: 1.7;
-    margin: 0;
-  }
+  background: var(--bg-glass);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 0.92rem;
 
   ol {
-    padding-left: 1.5rem;
-    
+    padding-left: 1.25rem;
+
     li {
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       line-height: 1.6;
     }
   }
-`
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+`;
+
+const InstructionsBody = styled.div`
+  color: var(--text-secondary);
+  line-height: 1.7;
+
+  a {
+    color: var(--accent-primary);
+  }
+`;
 
 const SectionTitle = styled.h2`
-  font-size: 1.8rem;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
 
   @media (max-width: 480px) {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
-`
+`;
 
 const IngredientsList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
-`
+`;
 
 const IngredientItem = styled.li`
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
-  background: #f8f9fa;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  animation: ${slideIn} 0.5s ease-out ${props => props.$delay}s both;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.4rem;
+  background: var(--bg-glass);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  animation: ${slideIn} 0.4s ease-out ${(props) => props.$delay}s both;
 
   &:hover {
-    background: #e9ecef;
-    transform: translateX(10px);
+    background: var(--bg-glass-hover);
+    transform: translateX(6px);
+    border-color: rgba(249, 115, 22, 0.15);
   }
-`
+`;
 
 const IngredientBullet = styled.div`
-  width: 8px;
-  height: 8px;
- background: linear-gradient(35deg, #494949, #313131);
+  width: 7px;
+  height: 7px;
+  background: var(--accent-primary);
   border-radius: 50%;
   flex-shrink: 0;
-`
+`;
 
 const IngredientText = styled.span`
-  font-size: 1.1rem;
-  line-height: 1.5;
-  color: #333;
-  font-weight: 500;
-`
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  font-weight: 400;
+`;
 
-export default Recipe
+export default Recipe;
